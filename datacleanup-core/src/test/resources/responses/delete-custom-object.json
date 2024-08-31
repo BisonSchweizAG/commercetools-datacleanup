@@ -1,0 +1,20 @@
+{
+  "id": "be3c0346-17fd-4785-a526-d286a504e501",
+  "version": 1,
+  "versionModifiedAt": "2024-08-28T11:22:22.757Z",
+  "createdAt": "2024-08-28T11:22:22.757Z",
+  "lastModifiedAt": "2024-08-28T11:22:22.757Z",
+  "lastModifiedBy": {
+    "clientId": "bIZm7bMPLSftjBUNlq1FdwH3",
+    "isPlatformClient": false
+  },
+  "createdBy": {
+    "clientId": "bIZm7bMPLSftjBUNlq1FdwH3",
+    "isPlatformClient": false
+  },
+  "container": "myContainer",
+  "key": "myKey",
+  "value": {
+    "someAttribute": "value1"
+  }
+}

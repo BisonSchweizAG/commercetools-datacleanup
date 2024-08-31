@@ -1,0 +1,4 @@
+rootProject.name = 'commercetools-datacleanup'
+
+
+include 'datacleanup-core'

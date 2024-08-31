@@ -1,0 +1,24 @@
+[versions]
+junit-jupiter = '5.10.2'
+mockito = '5.12.0'
+assertj = '3.26.0'
+commercetools = '17.11.0'
+commercetools-okhttp-client4 = '17.12.0'
+testcontainers = '1.19.8'
+slf4j = '2.0.13'
+logback = '1.5.6'
+mockserver = '5.15.0'
+
+[libraries]
+commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
+commercetools-okhttp-client4 = { module = "com.commercetools.sdk:commercetools-okhttp-client4", version.ref = "commercetools-okhttp-client4" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit.jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit.jupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit.jupiter" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+testcontainers-mockserver = { module = "org.testcontainers:mockserver", version.ref = "testcontainers" }
+mockserver-client = { module = "org.mock-server:mockserver-client-java", version.ref = "mockserver" }

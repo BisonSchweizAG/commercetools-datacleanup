@@ -1,0 +1,21 @@
+group = 'tech.bison.commercetools-datacleanup'
+
+subprojects {
+  apply plugin: 'java-library'
+  java {
+    sourceCompatibility = '21'
+    withSourcesJar()
+  }
+
+  repositories {
+    if (project.hasProperty('REPO1_URL')) {
+      maven {
+        url REPO1_URL
+      }
+    } else {
+      mavenCentral()
+      maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+
+  }
+}
