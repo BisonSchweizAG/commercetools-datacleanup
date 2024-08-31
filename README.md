@@ -1,14 +1,24 @@
 # commercetools Datacleanup
 
-TODO
+commercetools Data Cleanup is data reorganisation tool for commercetools. Configure predicates for your resources and commercetools Data Cleanup will periodically delete resources that match the predicate.
 
 ## Setup
 
 TODO
 
-## Getting Started
+## Usage with Spring Boot
 
 TODO
+
+## Usage with the CORE API
+
+```java
+DataCleanup dataCleanup = DataCleanup.configure()
+        .withApiProperties(new CommercetoolsProperties("clientId", "clientSecret", "apiUrl", "authUrl", "projectKey"))
+        .withPredicate(CUSTOM_OBJECT, "container = \"email\" and createdAt > \"2024 - 08 - 28T08:25:59.157Z\"")
+        .load()
+        .execute();
+```
 
 ## Building
 
@@ -18,4 +28,4 @@ REPO1_URL=https://artifactory.example.com/repo1
 
 ## License
 
-DataCleanup is published under the Apache License 2.0, see http://www.apache.org/licenses/LICENSE-2.0 for details.
+commercetools Data Cleanup is published under the Apache License 2.0, see http://www.apache.org/licenses/LICENSE-2.0 for details.
