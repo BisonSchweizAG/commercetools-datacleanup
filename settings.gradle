@@ -1,4 +1,5 @@
 rootProject.name = 'commercetools-datacleanup'
 
 
-include 'datacleanup-core'
+include 'datacleanup-core', 'commercetools-datacleanup-spring-boot-starter'
+

@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,7 +78,7 @@ public class DataCleanupIT {
 
     var result = DataCleanup.configure()
         .withApiProperties(commercetoolsProperties)
-        .withCustomObjectPredicate("container = \"myContainer\"")
+        .withPredicates(Map.of(CUSTOM_OBJECT, List.of("container = \"myContainer\"")))
         .load()
         .execute();
 

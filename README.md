@@ -8,9 +8,21 @@ TODO
 
 ## Usage with Spring Boot
 
-TODO
+Add our Spring Boot Starter to your dependencies and configure it as follows:
 
-## Usage with the CORE API
+```yaml
+datacleanup:
+    predicates:
+        custom-object:
+            - "container = \"myContainer\" and createdAt > ($currentDate - 6M)"
+        category:
+            - ...
+    classes:
+        - com.example.myCommand
+
+```
+
+## Usage with the Core API
 
 ```java
 DataCleanup dataCleanup = DataCleanup.configure()

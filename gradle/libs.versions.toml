@@ -8,6 +8,8 @@ testcontainers = '1.19.8'
 slf4j = '2.0.13'
 logback = '1.5.6'
 mockserver = '5.15.0'
+spring = '6.1.12'
+spring-boot = '3.3.3'
 
 [libraries]
 commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
@@ -18,6 +20,9 @@ junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", vers
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+spring-context = { module = "org.springframework:spring-context-support", version.ref = "spring" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 testcontainers-mockserver = { module = "org.testcontainers:mockserver", version.ref = "testcontainers" }

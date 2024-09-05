@@ -18,6 +18,7 @@ package tech.bison.datacleanup.core.api.configuration;
 import com.commercetools.api.client.ProjectApiRoot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import tech.bison.datacleanup.core.DataCleanup;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.exception.DataCleanupException;
@@ -61,10 +62,10 @@ public class FluentConfiguration implements Configuration {
   }
 
   /**
-   * Configures a predicate for custom objects which should be deleted. Multiple predicates are combined to an or query.
+   * Configures predicates for the given resource types which should be deleted. Multiple predicates are combined to an or query.
    */
-  public FluentConfiguration withCustomObjectPredicate(String predicate) {
-    cleanupPredicates.add(new CleanupPredicate(CleanableResourceType.CUSTOM_OBJECT, predicate));
+  public FluentConfiguration withPredicates(Map<CleanableResourceType, List<String>> predicates) {
+    predicates.forEach((key, value) -> value.forEach(predicate -> cleanupPredicates.add(new CleanupPredicate(key, predicate))));
     return this;
   }
 
