@@ -1,0 +1,6 @@
+datacleanup:
+  predicates:
+    custom-object:
+      - "container=myContainer"
+    category:
+      - "version=10"

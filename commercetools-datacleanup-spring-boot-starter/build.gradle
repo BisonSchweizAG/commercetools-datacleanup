@@ -1,3 +1,9 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
+plugins {
+  alias(libs.plugins.vanniktech.maven.publish)
+}
+
 dependencies {
   implementation libs.spring.boot.autoconfigure
   implementation libs.spring.context
@@ -16,6 +22,38 @@ dependencies {
 
 test {
   useJUnitPlatform() {
+  }
+}
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
+  //signAllPublications()
+  coordinates("io.github.studix", "commercetools-datacleanup-spring-boot-starter", "${project.version}")
+
+  pom {
+    name = "commercetools datacleanup spring boot starter"
+    description = "Spring Boot Starter for commercetools datacleanup."
+    inceptionYear = "2024"
+    url = "https://github.com/BisonSchweizAG/commercetools-datacleanup"
+    licenses {
+      license {
+        name = "The Apache License, Version 2.0"
+        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    }
+    developers {
+      developer {
+        id = "BisonSchweizAG"
+        name = "Bison Schweiz AG"
+        url = "https://github.com/BisonSchweizAG"
+      }
+    }
+    scm {
+      url = "https://github.com/BisonSchweizAG/commercetools-datacleanup"
+      connection = "scm:git:git://github.com/BisonSchweizAG/commercetools-datacleanup.git"
+      developerConnection = "scm:git:ssh://git@github.com/BisonSchweizAG/commercetools-datacleanup.git"
+    }
   }
 }
 

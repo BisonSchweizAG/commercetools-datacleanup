@@ -1,3 +1,15 @@
+plugins {
+  alias(libs.plugins.reckon)
+  alias(libs.plugins.vanniktech.maven.publish)
+}
+
+reckon {
+  defaultInferredScope = 'minor'
+  snapshots()
+  scopeCalc = calcScopeFromProp()
+  stageCalc = calcStageFromProp()
+}
+
 group = 'tech.bison.commercetools-datacleanup'
 
 subprojects {

@@ -10,6 +10,8 @@ logback = '1.5.6'
 mockserver = '5.15.0'
 spring = '6.1.12'
 spring-boot = '3.3.3'
+vanniktech-maven-publish = '0.29.0'
+reckon = '0.18.3'
 
 [libraries]
 commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
@@ -27,3 +29,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 testcontainers-mockserver = { module = "org.testcontainers:mockserver", version.ref = "testcontainers" }
 mockserver-client = { module = "org.mock-server:mockserver-client-java", version.ref = "mockserver" }
+
+[plugins]
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
+reckon = { id = "org.ajoberstar.reckon", version.ref = "reckon" }

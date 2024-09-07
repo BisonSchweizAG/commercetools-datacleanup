@@ -14,25 +14,31 @@
 package tech.bison.springboot.datacleanup.config;
 
 import com.commercetools.api.client.ProjectApiRoot;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import tech.bison.datacleanup.core.DataCleanup;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 
-@Configuration
-@ConfigurationProperties(prefix = "datacleanup")
+@AutoConfiguration
+@EnableConfigurationProperties(DataCleanupConfig.class)
 public class SpringBootDataCleanupAutoConfiguration {
 
-  private Map<CleanableResourceType, List<String>> predicates;
-
-  @ConditionalOnBean(ProjectApiRoot.class)
-  public DataCleanup dataCleanup(ProjectApiRoot projectApiRoot) {
+  @Bean
+  @ConditionalOnClass(DataCleanup.class)
+  public DataCleanup dataCleanup(ProjectApiRoot projectApiRoot, DataCleanupConfig dataCleanupConfig) {
+    Map<CleanableResourceType, List<String>> typedPredicates = new HashMap<>();
+    dataCleanupConfig.getPredicates().forEach((key, value) -> typedPredicates.put(Arrays.stream(CleanableResourceType.values()).filter(e -> e.getName().equals(key))
+            .findFirst().orElseThrow(() -> new UnsupportedOperationException(String.format("Unsupported resource type %s", key))),
+        value));
     return DataCleanup.configure()
+        .withPredicates(typedPredicates)
         .withApiRoot(projectApiRoot)
-        .withPredicates(predicates)
         .load();
   }
 }
