@@ -29,6 +29,7 @@ mavenPublishing {
 
   pom {
     name = "commercetools datacleanup core"
+    description = "commercetools data cleanup is a data cleanup tool for commercetools."
     inceptionYear = "2024"
     url = "https://github.com/BisonSchweizAG/commercetools-datacleanup"
     licenses {
