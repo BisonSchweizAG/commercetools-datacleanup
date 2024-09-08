@@ -6,9 +6,10 @@ plugins {
 
 dependencies {
   implementation libs.spring.boot.autoconfigure
+  implementation libs.spring.boot.starter
   implementation libs.spring.context
   implementation libs.commercetools.java.api
-  implementation project(':datacleanup-core')
+  api project(':datacleanup-core')
 
 
   testImplementation libs.junit.jupiter.api

@@ -24,6 +24,7 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 spring-context = { module = "org.springframework:spring-context-support", version.ref = "spring" }
 spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
