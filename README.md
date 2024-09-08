@@ -43,7 +43,7 @@ public CleanupJob(DataCleanup dataCleanup) {
     this.dataCleanup = dataCleanup;
 }
 
-@Scheduled(...)
+@Scheduled(cron = "0 2 * * *")
 @SchedulerLock(name = "cleanup")
 public void scheduledTask() {
     // To assert that the lock is held (prevents misconfiguration errors)

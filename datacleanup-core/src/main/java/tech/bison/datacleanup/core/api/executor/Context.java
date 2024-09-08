@@ -33,6 +33,9 @@ public class Context {
    * @return The commercetools api root object.
    */
   public ProjectApiRoot getProjectApiRoot() {
+    if (configuration.getApiRoot() != null) {
+      return configuration.getApiRoot();
+    }
     return createProjectApiRoot(configuration.getApiProperties());
   }
 
