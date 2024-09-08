@@ -2,16 +2,15 @@
 
 commercetools Data Cleanup is data reorganisation tool for commercetools. Configure predicates for your resources and commercetools Data Cleanup will periodically delete resources that match the predicate.
 
-## Setup
-
-TODO
-
 ## Usage with Spring Boot
 
 ### 1. Add dependency
 
 Add our Spring Boot Starter to your gradle or maven file.
-
+```groovy
+implementation "io.github.studix:commercetools-datacleanup-spring-boot-starter:x.y.z"
+```
+(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-spring-boot-starter))
 ### 2. Configuration
 
 Use application properties to configure the cleanup predicates for the commercetools resources to cleanup:
@@ -31,7 +30,7 @@ datacleanup:
 ### 3. Create a background cleanup job
 
 Take your background job library of your choice and execute the cleanup commands with the Core API.
-Example with Spring and ShedLock:
+Example with Spring Scheduling and [ShedLock](https://github.com/lukas-krecan/ShedLock):
 
 ```java
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
@@ -46,13 +45,22 @@ public CleanupJob(DataCleanup dataCleanup) {
 @Scheduled(cron = "0 2 * * *")
 @SchedulerLock(name = "cleanup")
 public void scheduledTask() {
-    // To assert that the lock is held (prevents misconfiguration errors)
     LockAssert.assertLocked();
     dataCleanup.execute();
 }
 ```
 
 ## Usage with the Core API
+
+### 1. Add dependency
+
+Add our Spring Boot Starter to your gradle or maven file.
+```groovy
+implementation "io.github.studix:commercetools-datacleanup-core:x.y.z"
+```
+(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-core))
+
+### 2. Configure and execute the cleanup commands
 
 ```java
 DataCleanup dataCleanup = DataCleanup.configure()
