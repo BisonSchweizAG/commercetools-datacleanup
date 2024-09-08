@@ -27,7 +27,7 @@ test {
 
 mavenPublishing {
   publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
-  //signAllPublications()
+  signAllPublications()
   coordinates("io.github.studix", "commercetools-datacleanup-spring-boot-starter", "${project.version}")
 
   pom {

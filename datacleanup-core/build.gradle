@@ -24,7 +24,7 @@ dependencies {
 
 mavenPublishing {
   publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
-  //signAllPublications()
+  signAllPublications()
   coordinates("io.github.studix", "commercetools-datacleanup-core", "${project.version}")
 
   pom {
