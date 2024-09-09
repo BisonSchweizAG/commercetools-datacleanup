@@ -54,7 +54,7 @@ public void scheduledTask() {
 
 ### 1. Add dependency
 
-Add our Spring Boot Starter to your gradle or maven file.
+Add the data cleanup core module to your gradle or maven file.
 ```groovy
 implementation "io.github.studix:commercetools-datacleanup-core:x.y.z"
 ```
