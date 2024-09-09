@@ -17,44 +17,29 @@ package tech.bison.datacleanup.core.internal.command;
 
 import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CUSTOM_OBJECT;
 
+import com.commercetools.api.client.ProjectApiRoot;
+import com.commercetools.api.models.ResourcePagedQueryResponse;
 import com.commercetools.api.models.custom_object.CustomObject;
-import com.commercetools.api.models.custom_object.CustomObjectPagedQueryResponse;
-import io.vrap.rmf.base.client.ApiHttpException;
-import java.util.ArrayList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
-import tech.bison.datacleanup.core.api.command.CleanupCommand;
-import tech.bison.datacleanup.core.api.command.ResourceCleanupSummary;
-import tech.bison.datacleanup.core.api.executor.Context;
 
-public class CustomObjectCommand implements CleanupCommand {
+public class CustomObjectCommand extends BaseCleanupCommand<CustomObject> {
 
-  private final static Logger LOG = LoggerFactory.getLogger(CustomObjectCommand.class);
-  private final String predicate;
-
-  public CustomObjectCommand(String predicate) {
-    this.predicate = predicate;
+  public CustomObjectCommand(List<String> predicates) {
+    super(predicates);
   }
 
   @Override
-  public ResourceCleanupSummary execute(Context context) {
-    CustomObjectPagedQueryResponse queryResponse = context.getProjectApiRoot().customObjects().get().withWhere(predicate).executeBlocking().getBody();
-    LOG.info("Found {} custom objects to be deleted.", queryResponse.getCount());
-    var deletedObjectsIds = new ArrayList<String>();
-    for (CustomObject customObject : queryResponse.getResults()) {
-      try {
-        var response = context.getProjectApiRoot().customObjects().withContainerAndKey(customObject.getContainer(), customObject.getKey())
-            .delete()
-            .executeBlocking()
-            .getBody();
-        LOG.info("Deleted custom object with id '{}' and version '{}'.", response.getId(), response.getVersion());
-        deletedObjectsIds.add(customObject.getId());
-      } catch (ApiHttpException exception) {
-        LOG.error("Failed to delete custom object with id '{}'.", customObject.getId(), exception);
-      }
-    }
-    return new ResourceCleanupSummary(deletedObjectsIds.size());
+  protected ResourcePagedQueryResponse<CustomObject> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
+    return projectApiRoot.customObjects().get().withWhere(getPredicates()).executeBlocking().getBody();
+  }
+
+  @Override
+  protected CustomObject delete(ProjectApiRoot projectApiRoot, CustomObject resource) {
+    return projectApiRoot.customObjects().withContainerAndKey(resource.getContainer(), resource.getKey())
+        .delete()
+        .executeBlocking()
+        .getBody();
   }
 
   @Override

@@ -17,16 +17,29 @@ package tech.bison.datacleanup.core.internal.command;
 
 import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CATEGORY;
 
+import com.commercetools.api.client.ProjectApiRoot;
+import com.commercetools.api.models.ResourcePagedQueryResponse;
+import com.commercetools.api.models.category.Category;
+import java.util.List;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
-import tech.bison.datacleanup.core.api.command.CleanupCommand;
-import tech.bison.datacleanup.core.api.command.ResourceCleanupSummary;
-import tech.bison.datacleanup.core.api.executor.Context;
 
-public class CategoryCommand implements CleanupCommand {
+public class CategoryCommand extends BaseCleanupCommand<Category> {
+
+  public CategoryCommand(List<String> predicates) {
+    super(predicates);
+  }
 
   @Override
-  public ResourceCleanupSummary execute(Context context) {
-    return new ResourceCleanupSummary(0);
+  protected ResourcePagedQueryResponse<Category> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
+    return projectApiRoot.categories().get().withWhere(getPredicates()).executeBlocking().getBody();
+  }
+
+  @Override
+  protected Category delete(ProjectApiRoot projectApiRoot, Category resource) {
+    return projectApiRoot.categories().withId(resource.getId())
+        .delete()
+        .executeBlocking()
+        .getBody();
   }
 
   @Override

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import tech.bison.datacleanup.core.api.command.CleanupCommand;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
-import tech.bison.datacleanup.core.api.executor.Context;
 import tech.bison.datacleanup.core.internal.command.CategoryCommand;
 import tech.bison.datacleanup.core.internal.command.CustomObjectCommand;
 
@@ -31,13 +30,12 @@ public class CleanupCommandResolver {
     this.configuration = configuration;
   }
 
-  public List<CleanupCommand> getCommands(Context context) {
+  public List<CleanupCommand> getCommands() {
     List<CleanupCommand> cleanupCommands = new ArrayList<>();
-    var cleanupPredicates = configuration.getCleanupPredicates();
-    for (var cleanupPredicate : cleanupPredicates) {
-      switch (cleanupPredicate.resourceType()) {
-        case CUSTOM_OBJECT -> cleanupCommands.add(new CustomObjectCommand(cleanupPredicate.predicate()));
-        case CATEGORY -> cleanupCommands.add(new CategoryCommand());
+    for (var cleanupPredicate : configuration.getPredicates().entrySet()) {
+      switch (cleanupPredicate.getKey()) {
+        case CUSTOM_OBJECT -> cleanupCommands.add(new CustomObjectCommand(cleanupPredicate.getValue()));
+        case CATEGORY -> cleanupCommands.add(new CategoryCommand(cleanupPredicate.getValue()));
       }
     }
     return cleanupCommands;

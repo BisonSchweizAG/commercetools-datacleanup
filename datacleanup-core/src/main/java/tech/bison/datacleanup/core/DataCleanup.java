@@ -67,7 +67,7 @@ public class DataCleanup {
   public CleanupResult execute() {
     try {
       var context = new Context(configuration);
-      List<CleanupCommand> cleanupCommands = commandResolver.getCommands(context);
+      List<CleanupCommand> cleanupCommands = commandResolver.getCommands();
       if (cleanupCommands.isEmpty()) {
         LOG.info("No cleanup commands found.");
         return CleanupResult.empty();

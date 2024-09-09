@@ -16,20 +16,18 @@
 package tech.bison.datacleanup.core.api.configuration;
 
 import com.commercetools.api.client.ProjectApiRoot;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import tech.bison.datacleanup.core.DataCleanup;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.exception.DataCleanupException;
-import tech.bison.datacleanup.core.internal.CleanupPredicate;
 
 
 public class FluentConfiguration implements Configuration {
 
   private CommercetoolsProperties apiProperties;
   private ProjectApiRoot projectApiRoot;
-  private final List<CleanupPredicate> cleanupPredicates = new ArrayList<>();
+  private Map<CleanableResourceType, List<String>> predicates;
 
   /**
    * @return The new fully-configured DataCleanup instance.
@@ -65,7 +63,7 @@ public class FluentConfiguration implements Configuration {
    * Configures predicates for the given resource types which should be deleted. Multiple predicates are combined to an or query.
    */
   public FluentConfiguration withPredicates(Map<CleanableResourceType, List<String>> predicates) {
-    predicates.forEach((key, value) -> value.forEach(predicate -> cleanupPredicates.add(new CleanupPredicate(key, predicate))));
+    this.predicates = predicates;
     return this;
   }
 
@@ -81,8 +79,8 @@ public class FluentConfiguration implements Configuration {
   }
 
   @Override
-  public List<CleanupPredicate> getCleanupPredicates() {
-    return cleanupPredicates;
+  public Map<CleanableResourceType, List<String>> getPredicates() {
+    return predicates;
   }
 
 }

@@ -17,13 +17,14 @@ package tech.bison.datacleanup.core.api.configuration;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import java.util.List;
-import tech.bison.datacleanup.core.internal.CleanupPredicate;
+import java.util.Map;
+import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 
 public interface Configuration {
 
   ProjectApiRoot getApiRoot();
 
-  List<CleanupPredicate> getCleanupPredicates();
+  Map<CleanableResourceType, List<String>> getPredicates();
 
   CommercetoolsProperties getApiProperties();
 }

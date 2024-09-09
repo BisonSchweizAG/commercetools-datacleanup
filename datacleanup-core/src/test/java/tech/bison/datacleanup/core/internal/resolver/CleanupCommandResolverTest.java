@@ -5,6 +5,7 @@ import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CATE
 import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CUSTOM_OBJECT;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,8 +16,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
-import tech.bison.datacleanup.core.api.executor.Context;
-import tech.bison.datacleanup.core.internal.CleanupPredicate;
 import tech.bison.datacleanup.core.internal.command.CategoryCommand;
 import tech.bison.datacleanup.core.internal.command.CustomObjectCommand;
 
@@ -25,18 +24,14 @@ class CleanupCommandResolverTest {
 
   @Mock
   private Configuration configuration;
-  @Mock
-  private Context context;
-
 
   @ParameterizedTest
   @MethodSource("provideInputForPredicates")
   void getCommands_predicates_containsCommand(CleanableResourceType resourceType, Class<?> expectedClas) {
-    var cleanupPredicate = new CleanupPredicate(resourceType, "predicate");
-    Mockito.when(configuration.getCleanupPredicates()).thenReturn(List.of(cleanupPredicate));
+    Mockito.when(configuration.getPredicates()).thenReturn(Map.of(resourceType, List.of("predicate")));
     CleanupCommandResolver cleanupCommandResolver = new CleanupCommandResolver(configuration);
 
-    var commands = cleanupCommandResolver.getCommands(context);
+    var commands = cleanupCommandResolver.getCommands();
 
     assertThat(commands).hasSize(1);
     assertThat(commands.getFirst()).isInstanceOf(expectedClas);
