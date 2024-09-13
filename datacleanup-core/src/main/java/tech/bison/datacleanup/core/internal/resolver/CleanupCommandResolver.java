@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import tech.bison.datacleanup.core.api.command.CleanupCommand;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
+import tech.bison.datacleanup.core.internal.command.CartCommand;
 import tech.bison.datacleanup.core.internal.command.CategoryCommand;
 import tech.bison.datacleanup.core.internal.command.CustomObjectCommand;
+import tech.bison.datacleanup.core.internal.command.OrderCommand;
+import tech.bison.datacleanup.core.internal.command.ProductCommand;
 
 public class CleanupCommandResolver {
 
@@ -36,6 +39,9 @@ public class CleanupCommandResolver {
       switch (cleanupPredicate.getKey()) {
         case CUSTOM_OBJECT -> cleanupCommands.add(new CustomObjectCommand(cleanupPredicate.getValue()));
         case CATEGORY -> cleanupCommands.add(new CategoryCommand(cleanupPredicate.getValue()));
+        case ORDER -> cleanupCommands.add(new OrderCommand(cleanupPredicate.getValue()));
+        case CART -> cleanupCommands.add(new CartCommand(cleanupPredicate.getValue()));
+        case PRODUCT -> cleanupCommands.add(new ProductCommand(cleanupPredicate.getValue()));
       }
     }
     return cleanupCommands;

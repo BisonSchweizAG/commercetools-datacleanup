@@ -16,7 +16,11 @@ package tech.bison.datacleanup;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CART;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CATEGORY;
 import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CUSTOM_OBJECT;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.ORDER;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.PRODUCT;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,15 +28,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockserver.client.MockServerClient;
 import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 import tech.bison.datacleanup.core.DataCleanup;
+import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.configuration.CommercetoolsProperties;
 
 @Testcontainers
@@ -85,8 +94,37 @@ public class DataCleanupIT {
     assertThat(result.getResourceSummary(CUSTOM_OBJECT).deleteCount()).isEqualTo(1);
   }
 
+  @ParameterizedTest
+  @MethodSource("provideInputForCleanup")
+  void configurePredicateThenDeleteMatchingResources(CleanableResourceType resourceType, String resourceEndpoint, String predicate) throws IOException {
+    mockServerClient
+        .when(request().withPath(String.format("/integrationtest/%s", resourceEndpoint)))
+        .respond(response().withBody(readResponseFromFile(String.format("responses/query-%s.json", resourceEndpoint))));
+
+    mockServerClient
+        .when(request().withPath(String.format("/integrationtest/%s/c2f93298-c967-44af-8c2a-d2220bf39eb2", resourceEndpoint)))
+        .respond(response().withBody(readResponseFromFile(String.format("responses/delete-%s.json", resourceType.getName()))));
+
+    var result = DataCleanup.configure()
+        .withApiProperties(commercetoolsProperties)
+        .withPredicates(Map.of(resourceType, List.of(predicate)))
+        .load()
+        .execute();
+
+    assertThat(result.getResourceSummary(resourceType).deleteCount()).isEqualTo(1);
+  }
+
   private String readResponseFromFile(String filename) throws IOException {
     final File file = new File(getClass().getClassLoader().getResource(filename).getFile());
     return Files.readString(file.toPath(), StandardCharsets.UTF_8);
+  }
+
+  private static Stream<Arguments> provideInputForCleanup() {
+    return Stream.of(
+        Arguments.of(CATEGORY, "categories", "name = \"catName\""),
+        Arguments.of(PRODUCT, "products", "name = \"productName\""),
+        Arguments.of(CART, "carts", "isActive = \"false\""),
+        Arguments.of(ORDER, "orders", "creationDate < \"2024-01-04T00:00:00.0000Z\"")
+    );
   }
 }

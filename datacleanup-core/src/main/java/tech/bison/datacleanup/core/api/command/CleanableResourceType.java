@@ -17,7 +17,11 @@ package tech.bison.datacleanup.core.api.command;
 
 public enum CleanableResourceType {
   CUSTOM_OBJECT("custom-object"),
-  CATEGORY("category");
+  CART("cart"),
+  CATEGORY("category"),
+  CUSTOMER("customer"),
+  PRODUCT("product"),
+  ORDER("order");
 
   private final String name;
 
