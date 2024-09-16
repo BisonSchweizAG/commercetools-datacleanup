@@ -16,6 +16,7 @@
 package tech.bison.datacleanup.core.api.configuration;
 
 import com.commercetools.api.client.ProjectApiRoot;
+import java.time.Clock;
 import java.util.List;
 import java.util.Map;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
@@ -27,4 +28,6 @@ public interface Configuration {
   Map<CleanableResourceType, List<String>> getPredicates();
 
   CommercetoolsProperties getApiProperties();
+
+  Clock getClock();
 }

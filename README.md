@@ -7,10 +7,13 @@ commercetools Data Cleanup is data reorganisation tool for commercetools. Config
 ### 1. Add dependency
 
 Add our Spring Boot Starter to your gradle or maven file.
+
 ```groovy
 implementation "io.github.studix:commercetools-datacleanup-spring-boot-starter:x.y.z"
 ```
+
 (latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-spring-boot-starter))
+
 ### 2. Configuration
 
 Use application properties to configure the cleanup predicates for the commercetools resources to cleanup:
@@ -19,13 +22,25 @@ Use application properties to configure the cleanup predicates for the commercet
 datacleanup:
     predicates:
         custom-object:
-            - "container = \"myContainer\" and createdAt > ($currentDate - 6M)"
+            - "container = 'myContainer' and createdAt > '{{now-6M}}'"
         category:
             - ...
     classes:
         - com.example.myCommand
 
 ```
+
+You can provide a datetime pattern enclosed with _{{ and }}_ to get a relative datetime. The basic format is {{now[diff...]}}.
+
+- _diff_ is optional
+- There can be multiple _diff's_ and they can be specified in any order
+- Whitespaces are allowed before and after each _diff_
+
+Examples:
+
+- {{now}}}
+- {{now-3M}}
+- {{now+1y+1M}}
 
 ### 3. Create a background cleanup job
 
@@ -55,9 +70,11 @@ public void scheduledTask() {
 ### 1. Add dependency
 
 Add the data cleanup core module to your gradle or maven file.
+
 ```groovy
 implementation "io.github.studix:commercetools-datacleanup-core:x.y.z"
 ```
+
 (latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-core))
 
 ### 2. Configure and execute the cleanup commands

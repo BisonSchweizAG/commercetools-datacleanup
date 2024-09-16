@@ -16,6 +16,7 @@
 package tech.bison.datacleanup.core.api.configuration;
 
 import com.commercetools.api.client.ProjectApiRoot;
+import java.time.Clock;
 import java.util.List;
 import java.util.Map;
 import tech.bison.datacleanup.core.DataCleanup;
@@ -28,6 +29,7 @@ public class FluentConfiguration implements Configuration {
   private CommercetoolsProperties apiProperties;
   private ProjectApiRoot projectApiRoot;
   private Map<CleanableResourceType, List<String>> predicates;
+  private Clock clock;
 
   /**
    * @return The new fully-configured DataCleanup instance.
@@ -67,6 +69,11 @@ public class FluentConfiguration implements Configuration {
     return this;
   }
 
+  public FluentConfiguration withClock(Clock clock) {
+    this.clock = clock;
+    return this;
+  }
+
 
   @Override
   public CommercetoolsProperties getApiProperties() {
@@ -83,4 +90,8 @@ public class FluentConfiguration implements Configuration {
     return predicates;
   }
 
+  @Override
+  public Clock getClock() {
+    return clock;
+  }
 }

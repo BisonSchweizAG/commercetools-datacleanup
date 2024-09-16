@@ -26,6 +26,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -86,12 +89,15 @@ public class DataCleanupIT {
         .respond(response().withBody(readResponseFromFile("responses/delete-custom-object.json")));
 
     var result = DataCleanup.configure()
+        .withClock(Clock.fixed(LocalDateTime.of(2024, 9, 16, 18, 0, 0).atZone(ZoneId.systemDefault()).toInstant(),
+            ZoneId.systemDefault()))
         .withApiProperties(commercetoolsProperties)
-        .withPredicates(Map.of(CUSTOM_OBJECT, List.of("container = \"myContainer\"")))
+        .withPredicates(Map.of(CUSTOM_OBJECT, List.of("container = 'myContainer' and creationDate > '{{now-3M}}'")))
         .load()
         .execute();
 
     assertThat(result.getResourceSummary(CUSTOM_OBJECT).deleteCount()).isEqualTo(1);
+    mockServerClient.verify(request().withPath("/integrationtest/custom-objects").withQueryStringParameter("where", "container = 'myContainer' and creationDate > '2024-06-16T18:00:00'"));
   }
 
   @ParameterizedTest
