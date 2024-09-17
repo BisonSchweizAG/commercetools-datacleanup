@@ -55,15 +55,7 @@ mavenPublishing {
 }
 
 test {
-  testLogging {
-    events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
-  }
-  useJUnitPlatform() {
-    filter {
-      includeTestsMatching "*Test"
-      excludeTestsMatching "*IT"
-    }
-  }
+  useJUnitPlatform()
 }
 
 tasks.register("integrationTest", Test) {

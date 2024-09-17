@@ -48,7 +48,7 @@ import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.configuration.CommercetoolsProperties;
 
 @Testcontainers
-public class DataCleanupIT {
+public class DataCleanupIntegrationTest {
 
   public static final DockerImageName MOCKSERVER_IMAGE = DockerImageName
       .parse("mockserver/mockserver")
