@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import tech.bison.datacleanup.core.api.command.CleanupCommand;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
+import tech.bison.datacleanup.core.api.exception.DataCleanupException;
 import tech.bison.datacleanup.core.internal.command.CartCommand;
 import tech.bison.datacleanup.core.internal.command.CategoryCommand;
 import tech.bison.datacleanup.core.internal.command.CustomObjectCommand;
@@ -56,7 +57,16 @@ public class CleanupCommandResolver {
         case PRODUCT -> cleanupCommands.add(new ProductCommand(parsePredicates(cleanupPredicate.getValue())));
       }
     }
+    configuration.getCustomCommandClasses().forEach(c -> cleanupCommands.add(createCommand(c)));
     return cleanupCommands;
+  }
+
+  private CleanupCommand createCommand(String clazz) {
+    try {
+      return (CleanupCommand) Class.forName(clazz).getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new DataCleanupException("Unable to instantiate class " + clazz + " : " + e.getMessage(), e);
+    }
   }
 
   private List<String> parsePredicates(List<String> predicates) {

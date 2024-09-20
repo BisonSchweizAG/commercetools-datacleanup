@@ -30,7 +30,7 @@ datacleanup:
 
 ```
 
-You can provide a datetime pattern enclosed with _{{ and }}_ to get a relative datetime. The basic format is {{now[diff...]}}.
+Within the predicate you can provide a datetime pattern enclosed with double curly brackets to get a relative datetime. The basic format is {{now[diff...]}}.
 
 - _diff_ is optional
 - There can be multiple _diff's_ and they can be specified in any order
@@ -41,6 +41,8 @@ Examples:
 - {{now}}}
 - {{now-3M}}
 - {{now+1y+1M}}
+
+If you want full control of the cleanup logic you can configure a class which implements the CleanupCommand interface. The class must be configured by its fully qualified name.
 
 ### 3. Create a background cleanup job
 

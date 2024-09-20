@@ -14,6 +14,8 @@
 package tech.bison.springboot.datacleanup.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CATEGORY;
+import static tech.bison.datacleanup.core.api.command.CleanableResourceType.CUSTOM_OBJECT;
 
 import com.commercetools.api.client.ProjectApiRoot;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,13 @@ class SpringBootDataCleanupAutoConfigurationTest {
   @Test
   void startup() {
     assertThat(dataCleanup).isNotNull();
+    var configuration = dataCleanup.getConfiguration();
+    assertThat(configuration.getPredicates()).hasSize(2);
+    assertThat(configuration.getPredicates()).hasEntrySatisfying(CUSTOM_OBJECT, e -> e.contains("container='myContainer'"));
+    assertThat(configuration.getPredicates()).hasEntrySatisfying(CATEGORY, e -> e.contains("version=10"));
+    assertThat(configuration.getCustomCommandClasses()).hasSize(2);
+    assertThat(configuration.getCustomCommandClasses().getFirst()).isEqualTo("com.example.MyCleanupCustomCommand1");
+    assertThat(configuration.getCustomCommandClasses().get(1)).isEqualTo("com.example.MyCleanupCustomCommand2");
   }
 
 }

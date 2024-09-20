@@ -38,7 +38,6 @@ public class DataCleanup {
   private final CleanupCommandResolver commandResolver;
   private final DataCleanupExecutor dataCleanupExecutor;
 
-
   public DataCleanup(Configuration configuration) {
     this.configuration = configuration;
     commandResolver = new CleanupCommandResolver(configuration);
@@ -57,6 +56,10 @@ public class DataCleanup {
    */
   public static FluentConfiguration configure() {
     return new FluentConfiguration();
+  }
+
+  public Configuration getConfiguration() {
+    return configuration;
   }
 
   /**

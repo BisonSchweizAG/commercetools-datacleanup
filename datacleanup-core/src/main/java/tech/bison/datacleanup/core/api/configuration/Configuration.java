@@ -27,6 +27,8 @@ public interface Configuration {
 
   Map<CleanableResourceType, List<String>> getPredicates();
 
+  List<String> getCustomCommandClasses();
+
   CommercetoolsProperties getApiProperties();
 
   Clock getClock();

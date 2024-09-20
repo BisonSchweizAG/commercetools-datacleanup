@@ -22,11 +22,21 @@ public class DataCleanupConfig {
 
   private Map<String, List<String>> predicates;
 
+  private List<String> classes;
+
   public Map<String, List<String>> getPredicates() {
     return predicates;
   }
 
   public void setPredicates(Map<String, List<String>> predicates) {
     this.predicates = predicates;
+  }
+
+  public List<String> getClasses() {
+    return classes;
+  }
+
+  public void setClasses(List<String> classes) {
+    this.classes = classes;
   }
 }

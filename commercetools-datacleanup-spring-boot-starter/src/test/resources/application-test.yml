@@ -1,6 +1,9 @@
 datacleanup:
   predicates:
     custom-object:
-      - "container=\"myContainer\""
+      - "container='myContainer'"
     category:
       - "version=10"
+  classes:
+    - com.example.MyCleanupCustomCommand1
+    - com.example.MyCleanupCustomCommand2
