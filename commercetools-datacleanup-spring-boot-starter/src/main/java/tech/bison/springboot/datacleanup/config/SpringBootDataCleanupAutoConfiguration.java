@@ -46,7 +46,6 @@ public class SpringBootDataCleanupAutoConfiguration {
     return DataCleanup.configure()
         .withPredicates(typedPredicates)
         .withCustomCommands(classes.toArray(new String[0]))
-        .withCustomCommands()
         .withApiRoot(projectApiRoot)
         .load();
   }
