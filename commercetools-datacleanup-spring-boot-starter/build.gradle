@@ -29,7 +29,7 @@ test {
 mavenPublishing {
   publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, true)
   signAllPublications()
-  coordinates("io.github.studix", "commercetools-datacleanup-spring-boot-starter", "${project.version}")
+  coordinates("tech.bison", "commercetools-datacleanup-spring-boot-starter", "${project.version}")
 
   pom {
     name = "commercetools datacleanup spring boot starter"
