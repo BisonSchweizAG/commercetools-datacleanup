@@ -9,10 +9,10 @@ commercetools Data Cleanup is data reorganisation tool for commercetools. Config
 Add our Spring Boot Starter to your gradle or maven file.
 
 ```groovy
-implementation "io.github.studix:commercetools-datacleanup-spring-boot-starter:x.y.z"
+implementation "tech.bison:commercetools-datacleanup-spring-boot-starter:x.y.z"
 ```
 
-(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-spring-boot-starter))
+(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=tech.bison&name=commercetools-datacleanup-spring-boot-starter))
 
 ### 2. Configuration
 
@@ -74,10 +74,10 @@ public void scheduledTask() {
 Add the data cleanup core module to your gradle or maven file.
 
 ```groovy
-implementation "io.github.studix:commercetools-datacleanup-core:x.y.z"
+implementation "tech.bison:commercetools-datacleanup-core:x.y.z"
 ```
 
-(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=io.github.studix&name=commercetools-datacleanup-core))
+(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=tech.bison&name=commercetools-datacleanup-core))
 
 ### 2. Configure and execute the cleanup commands
 
