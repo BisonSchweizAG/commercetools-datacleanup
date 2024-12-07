@@ -1,21 +1,20 @@
 [versions]
-junit-jupiter = '5.10.2'
-mockito = '5.13.0'
-assertj = '3.26.0'
-commercetools = '17.15.0'
-commercetools-okhttp-client4 = '17.15.0'
-testcontainers = '1.19.8'
+junit-jupiter = '5.11.3'
+mockito = '5.14.2'
+assertj = '3.26.3'
+commercetools = '17.20.0'
+testcontainers = '1.20.4'
 slf4j = '2.0.16'
-logback = '1.5.6'
+logback = '1.5.12'
 mockserver = '5.15.0'
 spring = '6.1.12'
 spring-boot = '3.3.3'
 vanniktech-maven-publish = '0.30.0'
-reckon = '0.18.3'
+reckon = '0.19.1'
 
 [libraries]
 commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
-commercetools-okhttp-client4 = { module = "com.commercetools.sdk:commercetools-okhttp-client4", version.ref = "commercetools-okhttp-client4" }
+commercetools-okhttp-client4 = { module = "com.commercetools.sdk:commercetools-okhttp-client4", version.ref = "commercetools" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit.jupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit.jupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit.jupiter" }
