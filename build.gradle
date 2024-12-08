@@ -14,10 +14,21 @@ group = 'tech.bison.commercetools-datacleanup'
 
 subprojects {
   apply plugin: 'java-library'
+  apply plugin: 'jacoco'
   java {
     sourceCompatibility = '21'
     withSourcesJar()
   }
+
+  test {
+    finalizedBy jacocoTestReport
+  }
+
+  jacocoTestReport {
+    dependsOn test
+  }
+
+  check.dependsOn jacocoTestReport
 
   repositories {
     if (project.hasProperty('REPO1_URL')) {
