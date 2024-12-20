@@ -1,7 +1,7 @@
 [versions]
 junit-jupiter = '5.11.3'
 mockito = '5.14.2'
-assertj = '3.26.3'
+assertj = '3.27.0'
 commercetools = '17.20.0'
 testcontainers = '1.20.4'
 slf4j = '2.0.16'
