@@ -1,6 +1,6 @@
 # commercetools Datacleanup
 
-commercetools Data Cleanup is data reorganisation tool for commercetools. Configure predicates for your resources and commercetools Data Cleanup will periodically delete resources that match the predicate.
+commercetools Data Cleanup is a data reorganisation tool for commercetools. Configure predicates for your resources and commercetools Data Cleanup will periodically delete resources that match the predicate.
 
 ## Usage with Spring Boot
 
