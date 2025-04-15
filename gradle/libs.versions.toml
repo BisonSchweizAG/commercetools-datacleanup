@@ -10,7 +10,7 @@ mockserver = '5.15.0'
 spring = '6.2.5'
 spring-boot = '3.4.4'
 vanniktech-maven-publish = '0.31.0'
-reckon = '0.19.1'
+reckon = '0.19.2'
 
 [libraries]
 commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
