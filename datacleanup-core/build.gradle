@@ -4,6 +4,10 @@ plugins {
   alias(libs.plugins.vanniktech.maven.publish)
 }
 
+configurations {
+  mockitoAgent
+}
+
 dependencies {
   implementation libs.commercetools.java.api
   implementation libs.slf4j
@@ -20,6 +24,9 @@ dependencies {
   testRuntimeOnly libs.junit.jupiter.engine
   testRuntimeOnly libs.logback
   runtimeOnly libs.commercetools.okhttp.client4
+  mockitoAgent(libs.mockito) {
+    transitive = false
+  }
 }
 
 mavenPublishing {
@@ -56,6 +63,13 @@ mavenPublishing {
 
 test {
   useJUnitPlatform()
+}
+
+
+tasks {
+  test {
+    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+  }
 }
 
 tasks.register("integrationTest", Test) {
