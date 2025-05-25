@@ -19,6 +19,7 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit.jupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit.jupiter" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 spring-context = { module = "org.springframework:spring-context-support", version.ref = "spring" }
