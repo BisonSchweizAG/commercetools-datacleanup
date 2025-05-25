@@ -65,17 +65,8 @@ test {
   useJUnitPlatform()
 }
 
-
 tasks {
   test {
     jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
-  }
-}
-
-tasks.register("integrationTest", Test) {
-  useJUnitPlatform {
-    filter {
-      includeTestsMatching '*IT'
-    }
   }
 }
