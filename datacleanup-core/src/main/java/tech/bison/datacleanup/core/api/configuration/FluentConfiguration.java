@@ -19,7 +19,7 @@ import com.commercetools.api.client.ProjectApiRoot;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import tech.bison.datacleanup.core.DataCleanup;
@@ -31,7 +31,7 @@ public class FluentConfiguration implements Configuration {
 
   private CommercetoolsProperties apiProperties;
   private ProjectApiRoot projectApiRoot;
-  private final Map<CleanableResourceType, List<String>> predicates = new HashMap<>();
+  private final Map<CleanableResourceType, DataCleanupPredicate> predicates = new EnumMap<>(CleanableResourceType.class);
   private final List<String> customCommandClasses = new ArrayList<>();
   private Clock clock;
 
@@ -68,7 +68,7 @@ public class FluentConfiguration implements Configuration {
   /**
    * Configures predicates for the given resource types which should be deleted. Multiple predicates are combined to an or query.
    */
-  public FluentConfiguration withPredicates(Map<CleanableResourceType, List<String>> predicates) {
+  public FluentConfiguration withPredicates(Map<CleanableResourceType, DataCleanupPredicate> predicates) {
     this.predicates.putAll(predicates);
     return this;
   }
@@ -98,7 +98,7 @@ public class FluentConfiguration implements Configuration {
   }
 
   @Override
-  public Map<CleanableResourceType, List<String>> getPredicates() {
+  public Map<CleanableResourceType, DataCleanupPredicate> getPredicates() {
     return predicates;
   }
 

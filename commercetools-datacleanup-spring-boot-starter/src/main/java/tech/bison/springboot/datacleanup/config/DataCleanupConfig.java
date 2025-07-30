@@ -20,15 +20,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("datacleanup")
 public class DataCleanupConfig {
 
-  private Map<String, List<String>> predicates;
+  private Map<String, DataCleanupPredicateConfig> predicates;
 
   private List<String> classes;
 
-  public Map<String, List<String>> getPredicates() {
+  public Map<String, DataCleanupPredicateConfig> getPredicates() {
     return predicates;
   }
 
-  public void setPredicates(Map<String, List<String>> predicates) {
+  public void setPredicates(Map<String, DataCleanupPredicateConfig> predicates) {
     this.predicates = predicates;
   }
 

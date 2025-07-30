@@ -25,7 +25,7 @@ public interface Configuration {
 
   ProjectApiRoot getApiRoot();
 
-  Map<CleanableResourceType, List<String>> getPredicates();
+  Map<CleanableResourceType, DataCleanupPredicate> getPredicates();
 
   List<String> getCustomCommandClasses();
 
