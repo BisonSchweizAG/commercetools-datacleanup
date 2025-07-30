@@ -82,7 +82,7 @@ public class DataCleanupIntegrationTest {
   @Test
   void configureCustomObjectPredicateThenDeleteMatchingResources() throws IOException {
     mockServerClient
-        .when(request().withPath("/integrationtest/custom-objects"))
+        .when(request().withPath("/integrationtest/custom-objects/myContainer"))
         .respond(response().withBody(readResponseFromFile("responses/query-custom-objects.json")));
 
     mockServerClient

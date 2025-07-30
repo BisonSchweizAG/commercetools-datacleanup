@@ -22,7 +22,9 @@ Use application properties to configure the cleanup predicates for the commercet
 datacleanup:
     predicates:
         custom-object:
-            - "container = 'myContainer' and createdAt > '{{now-6M}}'"
+          container: myContainer
+          where:
+              - "createdAt > '{{now-6M}}'"
         category:
             - ...
     classes:
@@ -41,6 +43,8 @@ Examples:
 - {{now}}}
 - {{now-3M}}
 - {{now+1y+1M}}
+
+Predicates of type _custom-object_ require a value in the _container_ attribute. This attribute should only be set for this type of predicate. The attribute is ignored for all other predicate types. 
 
 If you want full control of the cleanup logic you can configure a class which implements the CleanupCommand interface. The class must be configured by its fully qualified name.
 
