@@ -22,9 +22,9 @@ Use application properties to configure the cleanup predicates for the commercet
 datacleanup:
     predicates:
         custom-object:
-          container: myContainer
-          where:
-              - "createdAt > '{{now-6M}}'"
+            container: myContainer
+            where:
+                - createdAt > "{{now-6M}}"
         category:
             - ...
     classes:
@@ -32,7 +32,7 @@ datacleanup:
 
 ```
 
-Within the predicate you can provide a datetime pattern enclosed with double curly brackets to get a relative datetime. The basic format is {{now[diff...]}}.
+The where clause of a predicate must be in the [commercetools query predicate syntax](https://docs.commercetools.com/api/predicates/query). Within the predicate you can provide a datetime pattern enclosed with double curly brackets to get a relative datetime. The basic format is {{now[diff...]}}.
 
 - _diff_ is optional
 - There can be multiple _diff's_ and they can be specified in any order
@@ -44,7 +44,7 @@ Examples:
 - {{now-3M}}
 - {{now+1y+1M}}
 
-Predicates of type _custom-object_ require a value in the _container_ attribute. This attribute should only be set for this type of predicate. The attribute is ignored for all other predicate types. 
+Predicates of type _custom-object_ require a value in the _container_ attribute. This attribute should only be set for this type of predicate. The attribute is ignored for all other predicate types.
 
 If you want full control of the cleanup logic you can configure a class which implements the CleanupCommand interface. The class must be configured by its fully qualified name.
 
@@ -56,7 +56,7 @@ Example with Spring Scheduling and [ShedLock](https://github.com/lukas-krecan/Sh
 ```java
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 
-...
+//...
 
 @AutoWired
 public CleanupJob(DataCleanup dataCleanup) {
