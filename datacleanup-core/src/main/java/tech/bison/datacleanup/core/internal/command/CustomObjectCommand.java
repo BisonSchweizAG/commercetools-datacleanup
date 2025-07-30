@@ -35,7 +35,10 @@ public class CustomObjectCommand extends BaseCleanupCommand<CustomObject> {
 
   @Override
   protected ResourcePagedQueryResponse<CustomObject> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.customObjects().withContainer(container).get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.customObjects().withContainer(container).get()
+        .withLimit(BaseCleanupCommand.QUERY_RESULT_LIMIT)
+        .withWhere(getPredicates())
+        .executeBlocking().getBody();
   }
 
   @Override

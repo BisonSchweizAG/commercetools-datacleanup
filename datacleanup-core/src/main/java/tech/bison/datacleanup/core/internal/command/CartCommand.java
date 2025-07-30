@@ -29,7 +29,10 @@ public class CartCommand extends BaseCleanupCommand<Cart> {
 
   @Override
   protected ResourcePagedQueryResponse<Cart> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.carts().get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.carts().get()
+        .withLimit(BaseCleanupCommand.QUERY_RESULT_LIMIT)
+        .withWhere(getPredicates())
+        .executeBlocking().getBody();
   }
 
   @Override

@@ -28,6 +28,7 @@ import tech.bison.datacleanup.core.api.executor.Context;
 public abstract class BaseCleanupCommand<T extends BaseResource> implements CleanupCommand {
 
   private final static Logger LOG = LoggerFactory.getLogger(BaseCleanupCommand.class);
+  final static Long QUERY_RESULT_LIMIT = 100L;
   private final List<String> predicates;
 
   protected BaseCleanupCommand(List<String> predicates) {

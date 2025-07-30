@@ -29,7 +29,10 @@ public class ProductCommand extends BaseCleanupCommand<Product> {
 
   @Override
   protected ResourcePagedQueryResponse<Product> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.products().get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.products().get()
+        .withLimit(BaseCleanupCommand.QUERY_RESULT_LIMIT)
+        .withWhere(getPredicates())
+        .executeBlocking().getBody();
   }
 
   @Override

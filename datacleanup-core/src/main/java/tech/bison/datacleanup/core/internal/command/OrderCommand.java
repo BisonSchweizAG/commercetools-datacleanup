@@ -29,7 +29,10 @@ public class OrderCommand extends BaseCleanupCommand<Order> {
 
   @Override
   protected ResourcePagedQueryResponse<Order> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.orders().get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.orders().get()
+        .withLimit(BaseCleanupCommand.QUERY_RESULT_LIMIT)
+        .withWhere(getPredicates())
+        .executeBlocking().getBody();
   }
 
   @Override

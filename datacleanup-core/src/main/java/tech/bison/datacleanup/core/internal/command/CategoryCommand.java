@@ -31,7 +31,10 @@ public class CategoryCommand extends BaseCleanupCommand<Category> {
 
   @Override
   protected ResourcePagedQueryResponse<Category> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.categories().get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.categories().get()
+        .withLimit(BaseCleanupCommand.QUERY_RESULT_LIMIT)
+        .withWhere(getPredicates())
+        .executeBlocking().getBody();
   }
 
   @Override
