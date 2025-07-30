@@ -40,11 +40,16 @@ class SpringBootDataCleanupAutoConfigurationTest {
     assertThat(dataCleanup).isNotNull();
     var configuration = dataCleanup.getConfiguration();
     assertThat(configuration.getPredicates()).hasSize(2);
-    assertThat(configuration.getPredicates()).hasEntrySatisfying(CUSTOM_OBJECT, e -> e.contains("container='myContainer'"));
-    assertThat(configuration.getPredicates()).hasEntrySatisfying(CATEGORY, e -> e.contains("version=10"));
+    assertThat(configuration.getPredicates()).hasEntrySatisfying(CUSTOM_OBJECT, this::isCustomObjectDefinitionAsExpected);
+    assertThat(configuration.getPredicates()).hasEntrySatisfying(CATEGORY, e -> e.whereClauses().contains("version=10"));
     assertThat(configuration.getCustomCommandClasses()).hasSize(2);
     assertThat(configuration.getCustomCommandClasses().getFirst()).isEqualTo("com.example.MyCleanupCustomCommand1");
     assertThat(configuration.getCustomCommandClasses().get(1)).isEqualTo("com.example.MyCleanupCustomCommand2");
+  }
+
+  private boolean isCustomObjectDefinitionAsExpected(tech.bison.datacleanup.core.api.configuration.DataCleanupPredicate
+      predicate) {
+    return "myContainer".equals(predicate.container()) && predicate.whereClauses().contains("version=1");
   }
 
 }

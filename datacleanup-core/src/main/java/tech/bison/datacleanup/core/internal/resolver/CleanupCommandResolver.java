@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.bison.datacleanup.core.api.command.CleanupCommand;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
 import tech.bison.datacleanup.core.api.exception.DataCleanupException;
@@ -31,6 +33,7 @@ import tech.bison.datacleanup.core.internal.util.RelativeDateTimeParser;
 
 public class CleanupCommandResolver {
 
+  private static final Logger LOG = LoggerFactory.getLogger(CleanupCommandResolver.class);
   private static final Pattern predicateReplacePattern = Pattern.compile("\\{\\{(.*)}}");
   private final Configuration configuration;
   private final RelativeDateTimeParser dateTimeParser;
@@ -48,13 +51,15 @@ public class CleanupCommandResolver {
 
   public List<CleanupCommand> getCommands() {
     List<CleanupCommand> cleanupCommands = new ArrayList<>();
-    for (var cleanupPredicate : configuration.getPredicates().entrySet()) {
-      switch (cleanupPredicate.getKey()) {
-        case CUSTOM_OBJECT -> cleanupCommands.add(new CustomObjectCommand(parsePredicates(cleanupPredicate.getValue())));
-        case CATEGORY -> cleanupCommands.add(new CategoryCommand(parsePredicates(cleanupPredicate.getValue())));
-        case ORDER -> cleanupCommands.add(new OrderCommand(parsePredicates(cleanupPredicate.getValue())));
-        case CART -> cleanupCommands.add(new CartCommand(parsePredicates(cleanupPredicate.getValue())));
-        case PRODUCT -> cleanupCommands.add(new ProductCommand(parsePredicates(cleanupPredicate.getValue())));
+    for (var entry : configuration.getPredicates().entrySet()) {
+      var cleanupPredicate = entry.getValue();
+      switch (entry.getKey()) {
+        case CUSTOM_OBJECT -> cleanupCommands.add(new CustomObjectCommand(cleanupPredicate.container(), parsePredicates(cleanupPredicate.whereClauses())));
+        case CATEGORY -> cleanupCommands.add(new CategoryCommand(parsePredicates(cleanupPredicate.whereClauses())));
+        case ORDER -> cleanupCommands.add(new OrderCommand(parsePredicates(cleanupPredicate.whereClauses())));
+        case CART -> cleanupCommands.add(new CartCommand(parsePredicates(cleanupPredicate.whereClauses())));
+        case PRODUCT -> cleanupCommands.add(new ProductCommand(parsePredicates(cleanupPredicate.whereClauses())));
+        default -> LOG.warn("Unsupported predicate type '{}'.", entry.getKey());
       }
     }
     configuration.getCustomCommandClasses().forEach(c -> cleanupCommands.add(createCommand(c)));
@@ -75,7 +80,7 @@ public class CleanupCommandResolver {
 
   private String parsePredicate(String predicate) {
     var matcher = predicateReplacePattern.matcher(predicate);
-    return matcher.replaceAll((match) -> dateTimeParser.parse(match.group()).format(DateTimeFormatter.ISO_DATE_TIME));
+    return matcher.replaceAll(match -> dateTimeParser.parse(match.group()).format(DateTimeFormatter.ISO_DATE_TIME));
   }
 
 }

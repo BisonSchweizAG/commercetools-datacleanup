@@ -21,17 +21,21 @@ import com.commercetools.api.client.ProjectApiRoot;
 import com.commercetools.api.models.ResourcePagedQueryResponse;
 import com.commercetools.api.models.custom_object.CustomObject;
 import java.util.List;
+import java.util.Objects;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 
 public class CustomObjectCommand extends BaseCleanupCommand<CustomObject> {
 
-  public CustomObjectCommand(List<String> predicates) {
+  private final String container;
+
+  public CustomObjectCommand(String container, List<String> predicates) {
     super(predicates);
+    this.container = Objects.requireNonNull(container);
   }
 
   @Override
   protected ResourcePagedQueryResponse<CustomObject> getResourcesToDelete(ProjectApiRoot projectApiRoot) {
-    return projectApiRoot.customObjects().get().withWhere(getPredicates()).executeBlocking().getBody();
+    return projectApiRoot.customObjects().withContainer(container).get().withWhere(getPredicates()).executeBlocking().getBody();
   }
 
   @Override

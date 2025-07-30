@@ -46,6 +46,7 @@ import org.testcontainers.utility.DockerImageName;
 import tech.bison.datacleanup.core.DataCleanup;
 import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.configuration.CommercetoolsProperties;
+import tech.bison.datacleanup.core.api.configuration.DataCleanupPredicate;
 
 @Testcontainers
 public class DataCleanupIntegrationTest {
@@ -92,12 +93,12 @@ public class DataCleanupIntegrationTest {
         .withClock(Clock.fixed(LocalDateTime.of(2024, 9, 16, 18, 0, 0).atZone(ZoneId.systemDefault()).toInstant(),
             ZoneId.systemDefault()))
         .withApiProperties(commercetoolsProperties)
-        .withPredicates(Map.of(CUSTOM_OBJECT, List.of("container = 'myContainer' and creationDate > '{{now-3M}}'")))
+        .withPredicates(Map.of(CUSTOM_OBJECT, new DataCleanupPredicate("myContainer", List.of("creationDate > '{{now-3M}}'"))))
         .load()
         .execute();
 
     assertThat(result.getResourceSummary(CUSTOM_OBJECT).deleteCount()).isEqualTo(1);
-    mockServerClient.verify(request().withPath("/integrationtest/custom-objects").withQueryStringParameter("where", "container = 'myContainer' and creationDate > '2024-06-16T18:00:00'"));
+    mockServerClient.verify(request().withPath("/integrationtest/custom-objects/myContainer").withQueryStringParameter("where", "creationDate > '2024-06-16T18:00:00'"));
   }
 
   @ParameterizedTest
@@ -113,7 +114,7 @@ public class DataCleanupIntegrationTest {
 
     var result = DataCleanup.configure()
         .withApiProperties(commercetoolsProperties)
-        .withPredicates(Map.of(resourceType, List.of(predicate)))
+        .withPredicates(Map.of(resourceType, new DataCleanupPredicate(null, List.of(predicate))))
         .load()
         .execute();
 

@@ -22,6 +22,7 @@ import tech.bison.datacleanup.core.api.command.CleanableResourceType;
 import tech.bison.datacleanup.core.api.command.CleanupCommand;
 import tech.bison.datacleanup.core.api.command.ResourceCleanupSummary;
 import tech.bison.datacleanup.core.api.configuration.Configuration;
+import tech.bison.datacleanup.core.api.configuration.DataCleanupPredicate;
 import tech.bison.datacleanup.core.api.executor.Context;
 import tech.bison.datacleanup.core.internal.command.CartCommand;
 import tech.bison.datacleanup.core.internal.command.CategoryCommand;
@@ -49,8 +50,8 @@ class CleanupCommandResolverTest {
 
   @ParameterizedTest
   @MethodSource("provideInputForPredicates")
-  void getCommands_predicates_containsCommand(CleanableResourceType resourceType, Class<?> expectedClas) {
-    when(configuration.getPredicates()).thenReturn(Map.of(resourceType, List.of("predicate")));
+  void getCommands_predicates_containsCommand(CleanableResourceType resourceType, String container, Class<?> expectedClas) {
+    when(configuration.getPredicates()).thenReturn(Map.of(resourceType, new DataCleanupPredicate(container, List.of("predicate"))));
     CleanupCommandResolver cleanupCommandResolver = new CleanupCommandResolver(configuration);
 
     var commands = cleanupCommandResolver.getCommands();
@@ -61,11 +62,11 @@ class CleanupCommandResolverTest {
 
   private static Stream<Arguments> provideInputForPredicates() {
     return Stream.of(
-        Arguments.of(CUSTOM_OBJECT, CustomObjectCommand.class),
-        Arguments.of(CATEGORY, CategoryCommand.class),
-        Arguments.of(PRODUCT, ProductCommand.class),
-        Arguments.of(CART, CartCommand.class),
-        Arguments.of(ORDER, OrderCommand.class)
+        Arguments.of(CUSTOM_OBJECT, "container", CustomObjectCommand.class),
+        Arguments.of(CATEGORY, null, CategoryCommand.class),
+        Arguments.of(PRODUCT, null, ProductCommand.class),
+        Arguments.of(CART, null, CartCommand.class),
+        Arguments.of(ORDER, null, OrderCommand.class)
     );
   }
 
