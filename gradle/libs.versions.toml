@@ -1,6 +1,6 @@
 [versions]
-junit-jupiter = '5.11.3'
-mockito = '5.18.0'
+junit-jupiter = '5.13.4'
+mockito = '5.19.0'
 assertj = '3.27.4'
 commercetools = '19.2.0'
 testcontainers = '1.21.3'
@@ -15,9 +15,9 @@ reckon = '0.19.2'
 [libraries]
 commercetools-java-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools" }
 commercetools-okhttp-client4 = { module = "com.commercetools.sdk:commercetools-okhttp-client4", version.ref = "commercetools" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit.jupiter" }
-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit.jupiter" }
-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit.jupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
 junit-jupiter-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }

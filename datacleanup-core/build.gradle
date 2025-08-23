@@ -20,6 +20,7 @@ dependencies {
   testImplementation libs.testcontainers.junit.jupiter
 
   testRuntimeOnly libs.junit.jupiter.engine
+  testRuntimeOnly libs.junit.jupiter.platform.launcher
   testRuntimeOnly libs.logback
   runtimeOnly libs.commercetools.okhttp.client4
   mockitoAgent(libs.mockito) {
