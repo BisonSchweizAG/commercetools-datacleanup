@@ -2,7 +2,7 @@
 junit-jupiter = '5.13.4'
 mockito = '5.19.0'
 assertj = '3.27.4'
-commercetools = '19.2.0'
+commercetools = '19.3.0'
 testcontainers = '1.21.3'
 slf4j = '2.0.17'
 logback = '1.5.18'
