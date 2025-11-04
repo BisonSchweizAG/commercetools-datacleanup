@@ -24,7 +24,7 @@ datacleanup:
         custom-object:
             container: myContainer
             where:
-                - createdAt > "{{now-6M}}"
+                - createdAt < "{{now-6M}}"
         category:
             - ...
     classes:
