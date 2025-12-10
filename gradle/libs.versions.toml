@@ -1,6 +1,6 @@
 [versions]
 junit-jupiter = '6.0.1'
-mockito = '5.20.0'
+mockito = '5.21.0'
 assertj = '3.27.6'
 commercetools = '19.6.2'
 testcontainers = '1.21.3'
