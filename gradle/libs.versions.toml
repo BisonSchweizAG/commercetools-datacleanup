@@ -9,7 +9,7 @@ logback = '1.5.25'
 mockserver = '5.15.0'
 spring = '7.0.3'
 spring-boot = '4.0.1'
-vanniktech-maven-publish = '0.35.0'
+vanniktech-maven-publish = '0.36.0'
 reckon = '1.0.1'
 
 [libraries]
