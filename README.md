@@ -2,34 +2,28 @@
 
 commercetools Data Cleanup is a data reorganisation tool for commercetools. Configure predicates for your resources and commercetools Data Cleanup will periodically delete resources that match the predicate.
 
-## Usage with Spring Boot
+## Usage
 
 ### 1. Add dependency
 
-Add our Spring Boot Starter to your gradle or maven file.
+Add the data cleanup core module to your gradle or maven file.
+
+`Add the data cleanup core module to your gradle or maven file.
 
 ```groovy
-implementation "tech.bison:commercetools-datacleanup-spring-boot-starter:x.y.z"
+implementation "tech.bison:commercetools-datacleanup-core:x.y.z"
 ```
 
-(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=tech.bison&name=commercetools-datacleanup-spring-boot-starter))
+(latest version numbers available on [Maven Central](https://central.sonatype.com/search?namespace=tech.bison&name=commercetools-datacleanup-core))
 
-### 2. Configuration
+### 2. Configure and execute the cleanup commands
 
-Use application properties to configure the cleanup predicates for the commercetools resources to cleanup:
-
-```yaml
-datacleanup:
-    predicates:
-        custom-object:
-            container: myContainer
-            where:
-                - createdAt < "{{now-6M}}"
-        category:
-            - ...
-    classes:
-        - com.example.myCommand
-
+```java
+DataCleanup dataCleanup = DataCleanup.configure()
+        .withApiProperties(new CommercetoolsProperties("clientId", "clientSecret", "apiUrl", "authUrl", "projectKey"))
+        .withPredicate(CUSTOM_OBJECT, "container = \"email\" and createdAt > \"2024 - 08 - 28T08:25:59.157Z\"")
+        .load()
+        .execute();
 ```
 
 The where clause of a predicate must be in the [commercetools query predicate syntax](https://docs.commercetools.com/api/predicates/query). Within the predicate you can provide a datetime pattern enclosed with double curly brackets to get a relative datetime. The basic format is {{now[diff...]}}.
@@ -71,27 +65,9 @@ public void scheduledTask() {
 }
 ```
 
-## Usage with the Core API
+## Spring Boot Starter (Deprecated)
 
-### 1. Add dependency
-
-Add the data cleanup core module to your gradle or maven file.
-
-```groovy
-implementation "tech.bison:commercetools-datacleanup-core:x.y.z"
-```
-
-(latest version numbers avaible on [Maven Central](https://central.sonatype.com/search?namespace=tech.bison&name=commercetools-datacleanup-core))
-
-### 2. Configure and execute the cleanup commands
-
-```java
-DataCleanup dataCleanup = DataCleanup.configure()
-        .withApiProperties(new CommercetoolsProperties("clientId", "clientSecret", "apiUrl", "authUrl", "projectKey"))
-        .withPredicate(CUSTOM_OBJECT, "container = \"email\" and createdAt > \"2024 - 08 - 28T08:25:59.157Z\"")
-        .load()
-        .execute();
-```
+Previously, there was a spring boot starter available for this library. The spring boot starter is deprecated. The last version of commercetools-datacleanup-spring-boot-starter is 1.0.2 No updates will be available. Use the artifact commercetools-datacleanup-core instead.
 
 ## Building
 
