@@ -23,17 +23,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <p>
+ *
  * Parser for relative date time string in the format of {@code {{now[diff...]}}} <br> 'diff' is optional.<br> Whitespaces are allowed before and after each 'diff'.
- * </p>
- * <p>Examples:
+ *
+ * Examples:
  * <ul>
  *   <li>{@code {{now}}}</li>
  *   <li>{@code {{now-60s}}}</li>
- *   <li>{@code {{now-3M}}</li>
- *   <li>{@code {{now+1y+1M-2h}}</li>
+ *   <li>{@code {{now-3M}}}</li>
+ *   <li>{@code {{now+1y+1M-2h}}}</li>
  * </ul>
- * </p>
  */
 public class RelativeDateTimeParser {
 

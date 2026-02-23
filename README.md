@@ -21,7 +21,7 @@ implementation "tech.bison:commercetools-datacleanup-core:x.y.z"
 ```java
 DataCleanup dataCleanup = DataCleanup.configure()
         .withApiProperties(new CommercetoolsProperties("clientId", "clientSecret", "apiUrl", "authUrl", "projectKey"))
-        .withPredicate(CUSTOM_OBJECT, "container = \"email\" and createdAt > \"2024 - 08 - 28T08:25:59.157Z\"")
+        .withPredicates(Map.of(CUSTOM_OBJECT, new DataCleanupPredicate("containerName" , List.of("reatedAt > \"2024 - 08 - 28T08:25:59.157Z\""))))
         .load()
         .execute();
 ```
