@@ -10,6 +10,7 @@ mockserver = '5.15.0'
 spring = '7.0.5'
 spring-boot = '4.0.3'
 vanniktech-maven-publish = '0.36.0'
+cyclonedx-bom = '3.2.0'
 reckon = '2.0.0'
 
 [libraries]
@@ -34,4 +35,5 @@ mockserver-client = { module = "org.mock-server:mockserver-client-java", version
 
 [plugins]
 vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
+cyclonedx-bom = { id = "org.cyclonedx.bom", version.ref = "cyclonedx-bom" }
 reckon = { id = "org.ajoberstar.reckon", version.ref = "reckon" }

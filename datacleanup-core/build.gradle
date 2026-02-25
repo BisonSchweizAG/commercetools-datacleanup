@@ -1,5 +1,8 @@
+import org.cyclonedx.model.OrganizationalContact
+import org.cyclonedx.model.OrganizationalEntity
 plugins {
   alias(libs.plugins.vanniktech.maven.publish)
+  alias(libs.plugins.cyclonedx.bom)
 }
 
 configurations {
@@ -26,6 +29,18 @@ dependencies {
   mockitoAgent(libs.mockito) {
     transitive = false
   }
+}
+
+tasks.cyclonedxDirectBom {
+  includeConfigs = ["runtimeClasspath"]
+  def contact = new OrganizationalContact()
+  contact.name = "Bison Schweiz AG"
+
+  def entity = new OrganizationalEntity()
+  entity.name = "Bison Schweiz AG"
+  entity.addContact(contact)
+
+  organizationalEntity = entity
 }
 
 mavenPublishing {
@@ -56,6 +71,19 @@ mavenPublishing {
       url = "https://github.com/BisonSchweizAG/commercetools-datacleanup"
       connection = "scm:git:git://github.com/BisonSchweizAG/commercetools-datacleanup.git"
       developerConnection = "scm:git:ssh://git@github.com/BisonSchweizAG/commercetools-datacleanup.git"
+    }
+  }
+}
+
+afterEvaluate {
+  publishing {
+    publications {
+      maven(MavenPublication) {
+        artifact(file("$buildDir/reports/cyclonedx-direct/bom.json")) {
+          classifier = "sbom"
+          extension = "json"
+        }
+      }
     }
   }
 }
