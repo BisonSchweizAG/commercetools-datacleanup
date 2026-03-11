@@ -10,7 +10,7 @@ mockserver = '5.15.0'
 spring = '7.0.5'
 spring-boot = '4.0.3'
 vanniktech-maven-publish = '0.36.0'
-cyclonedx-bom = '3.2.0'
+cyclonedx-bom = '3.2.1'
 reckon = '2.0.0'
 
 [libraries]
