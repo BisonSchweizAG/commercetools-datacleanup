@@ -7,8 +7,6 @@ testcontainers = '1.21.4'
 slf4j = '2.0.17'
 logback = '1.5.32'
 mockserver = '5.15.0'
-spring = '7.0.6'
-spring-boot = '4.0.3'
 vanniktech-maven-publish = '0.36.0'
 cyclonedx-bom = '3.2.2'
 reckon = '2.0.0'
@@ -24,10 +22,6 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
-spring-context = { module = "org.springframework:spring-context-support", version.ref = "spring" }
-spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
-spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 testcontainers-mockserver = { module = "org.testcontainers:mockserver", version.ref = "testcontainers" }
