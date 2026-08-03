@@ -2,7 +2,7 @@
 junit-jupiter = '6.1.2'
 mockito = '5.23.0'
 assertj = '3.27.7'
-commercetools = '20.0.0'
+commercetools = '20.1.0'
 slf4j = '2.0.18'
 logback = '1.6.1'
 vanniktech-maven-publish = '0.37.0'
