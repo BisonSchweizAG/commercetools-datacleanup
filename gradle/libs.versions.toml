@@ -6,7 +6,7 @@ commercetools = '20.2.0'
 slf4j = '2.0.20'
 logback = '1.6.5'
 vanniktech-maven-publish = '0.37.0'
-cyclonedx-bom = '3.4.1'
+cyclonedx-bom = '3.5.0'
 reckon = '2.0.0'
 wiremock = '3.13.2'
 
